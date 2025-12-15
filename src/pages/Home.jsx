@@ -11,7 +11,7 @@ export default function Home() {
       .from("courses")
       .select("*")
       .then(({ data, error }) => {
-        if (error) console.error("Error loading courses:", error);
+        if (error) console.error(error);
         else setCourses(data);
         setLoading(false);
       });

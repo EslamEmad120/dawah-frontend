@@ -10,7 +10,6 @@ export default function LessonDetail() {
   const [score, setScore] = useState(null);
 
   useEffect(() => {
-    // بيانات الدرس
     supabase
       .from("lessons")
       .select("*")
@@ -21,7 +20,6 @@ export default function LessonDetail() {
         else setLesson(data);
       });
 
-    // أسئلة الدرس
     supabase
       .from("questions")
       .select("*")

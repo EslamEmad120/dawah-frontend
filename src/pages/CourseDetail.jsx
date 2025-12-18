@@ -6,83 +6,92 @@ export default function CourseDetail() {
   const { courseId } = useParams();
   const [course, setCourse] = useState(null);
   const [lessons, setLessons] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // جلب بيانات الكورس
-    supabase
-      .from("courses")
-      .select("*")
-      .eq("id", courseId)
-      .single()
-      .then(({ data, error }) => {
-        if (error) console.error(error);
-        else setCourse(data);
-      });
+    const fetchData = async () => {
+      const { data: courseData } = await supabase
+        .from("courses")
+        .select("*")
+        .eq("id", courseId)
+        .single();
 
-    // جلب الدروس
-    supabase
-      .from("lessons")
-      .select("*")
-      .eq("course_id", courseId)
-      .then(({ data, error }) => {
-        if (error) console.error(error);
-        else setLessons(data);
-      });
+      const { data: lessonsData } = await supabase
+        .from("lessons")
+        .select("*")
+        .eq("course_id", courseId)
+        .order("order_index", { ascending: true });
+
+      setCourse(courseData);
+      setLessons(lessonsData || []);
+      setLoading(false);
+    };
+
+    fetchData();
   }, [courseId]);
 
-  if (!course) return <h2>جاري التحميل...</h2>;
+  if (loading)
+    return (
+      <div className="bg-dark text-light min-vh-100 d-flex justify-content-center align-items-center">
+        ⏳ جاري التحميل...
+      </div>
+    );
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h1>{course.title}</h1>
-      <p>{course.description}</p>
+    <div className="bg-dark text-light min-vh-100 py-5">
+      <div className="container">
+        <h1 className="text-center mb-3">{course.title}</h1>
+        <p className="text-center text-secondary mb-4">
+          {course.description}
+        </p>
 
-      <img
-        src={course.image || "/images/default.png"}
-        alt={course.title}
-        style={{
-          width: "100%",
-          maxHeight: "300px",
-          objectFit: "cover",
-          borderRadius: "10px",
-          marginTop: "10px",
-        }}
-      />
-
-      <h2 style={{ marginTop: "30px" }}>الدروس</h2>
-
-<div className="row">
-  {lessons.map((lesson) => (
-    <div key={lesson.id} className="col-md-4 mb-4">
-      <div className="card h-100">
         <img
-          src={lesson.image_url || "/images/default.png"}
-          className="card-img-top"
-          alt={lesson.title}
-          style={{ height: "180px", objectFit: "cover" }}
+          src={course.image}
+          alt={course.title}
+          className="img-fluid rounded mb-5 w-100"
+          style={{ maxHeight: "450px", objectFit: "cover" }}
         />
-        <div className="card-body d-flex flex-column">
-          <h5 className="card-title">{lesson.title}</h5>
-          <p className="card-text">{lesson.description}</p>
-          <div className="mt-auto">
-            <a
-              href={lesson.pdf_url}
-              target="_blank"
-              rel="noreferrer"
-              className="btn btn-info me-2"
-            >
-              مشاهدة الفيديو
-            </a>
-            <Link to={`/lesson/${lesson.id}`} className="btn btn-success">
-              بدء الاختبار
-            </Link>
-          </div>
+
+        <h2 className="text-center mb-4">📚 الدروس</h2>
+
+        <div className="row">
+          {lessons.map((lesson) => (
+            <div key={lesson.id} className="col-md-4 mb-4">
+              <div className="card bg-dark text-light h-100 shadow border-secondary">
+                <img
+                  src={lesson.image_url || "/images/default.png"}
+                  className="card-img-top"
+                  alt={lesson.title}
+                  style={{ height: "200px", objectFit: "cover" }}
+                />
+
+                <div className="card-body d-flex flex-column text-center">
+                  <h5>{lesson.title}</h5>
+                  <p className="text-secondary small">
+                    {lesson.description}
+                  </p>
+
+                  <div className="mt-auto">
+                    <Link
+                      to={`/lesson/${lesson.id}`}
+                      state={{ lesson }}
+                      className="btn btn-outline-light w-100"
+                    >
+                      🎬 تفاصيل الدرس
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="text-center mt-5">
+          <Link to="/" className="btn btn-outline-secondary">
+            🔙 العودة للرئيسية
+          </Link>
         </div>
       </div>
-    </div>
-  ))}
-</div>
-
     </div>
   );
 }

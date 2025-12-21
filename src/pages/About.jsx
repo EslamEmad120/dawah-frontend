@@ -3,24 +3,100 @@ import React from "react";
 export default function About() {
   return (
     <div className="bg-dark text-light min-vh-100 py-5">
-      <div className="container text-center">
-        <h1 className="mb-4">الشيخ علاء حامد</h1>
+      <div className="container">
 
-        <img
-          src="https://cvtlkqqnoqcwvzvlazyz.supabase.co/storage/v1/object/public/courses-bucket/courses/unnamed.jpg"
-          alt="الشيخ علاء حامد"
-          className="img-fluid rounded mb-4"
-          style={{ maxHeight: "400px", objectFit: "cover", width: "100%" }}
-        />
+        {/* ====== Section 1 : About Sheikh ====== */}
+        <div className="row align-items-center mb-5">
+          
+          {/* Image */}
+          <div className="col-md-5 mb-4 mb-md-0">
+            <img
+              src="https://cvtlkqqnoqcwvzvlazyz.supabase.co/storage/v1/object/public/courses-bucket/lessons/alaaHemed.jpeg"
+              alt="الشيخ علاء حامد"
+              className="img-fluid rounded shadow"
+              style={{ maxHeight: "420px", objectFit: "cover", width: "100%" }}
+            />
+          </div>
 
-        <p className="fs-5 text-secondary">
-          الشيخ علاء حامد، داعية إسلامي، متخصص في شرح القرآن الكريم والسيرة النبوية.  
-          يقدم الدروس بأسلوب سهل وميسر، ويسعى لنشر العلم الشرعي بطريقة عملية تناسب جميع الأعمار.
-        </p>
+          {/* Content */}
+          <div className="col-md-7 text-end">
+            <h1 className="mb-3">مهندس علاء حامد</h1>
 
-        <p className="fs-6 text-secondary mt-3">
-          يمكنك متابعة الدروس والمحاضرات من خلال المنصة والاطلاع على جميع الكورسات المتاحة.
-        </p>
+            <p className="fs-5 text-secondary">
+              المهندس علاء حامد داعية إسلامي  مهتم بتدبر القرآن، ويقدم العلم الشرعي بأسلوب مبسط
+            </p>
+
+            <p className="fs-6 text-secondary">
+              يهدف إلى نشر الوعي الديني الصحيح وتقديم محتوى علمي
+              يناسب مختلف الأعمار والمستويات.
+            </p>
+          </div>
+        </div>
+
+        {/* ====== Section 2 : Works ====== */}
+        <div className="border-top pt-5">
+          <h2 className="text-center mb-4">مؤلفات الشيخ</h2>
+
+          <div className="row g-4">
+
+<div className="row g-4">
+
+  {/* Book 1 */}
+  <div className="col-md-4">
+    <div className="bg-black p-4 rounded shadow text-center h-100 d-flex flex-column">
+      <img
+        src="https://cvtlkqqnoqcwvzvlazyz.supabase.co/storage/v1/object/public/courses-bucket/lessons/arbaoonBook.jpg"
+        className="mb-4 img-fluid"
+        alt="شرح الأربعون النووية"
+        style={{ maxHeight: "450px", objectFit: "cover" }}
+      />
+      <h5 className="mb-3">📘 شرح الأربعون النووية</h5>
+      <p className="text-secondary mt-auto">
+        تدبر وشرح كتاب الأربعون النووية للإمام النووي
+      </p>
+    </div>
+  </div>
+
+  {/* Book 2 */}
+  <div className="col-md-4">
+    <div className="bg-black p-4 rounded shadow text-center h-100 d-flex flex-column">
+      <img
+        src="https://cvtlkqqnoqcwvzvlazyz.supabase.co/storage/v1/object/public/courses-bucket/lessons/kahf.jpg"
+        className="mb-4 img-fluid"
+        alt="أنوار الكهف"
+        style={{ maxHeight: "420px", objectFit: "cover" }}
+      />
+      <h5 className="mb-3">📘 أنوار الكهــف</h5>
+      <p className="text-secondary mt-auto">
+        تدبر سورة الكهف
+      </p>
+    </div>
+  </div>
+
+  {/* Book 3 */}
+  <div className="col-md-4">
+    <div className="bg-black p-4 rounded shadow text-center h-100 d-flex flex-column">
+      <img
+        src="https://cvtlkqqnoqcwvzvlazyz.supabase.co/storage/v1/object/public/courses-bucket/lessons/tazkia.jpg"
+        className="mb-4 img-fluid"
+        alt="خريطة التزكية"
+        style={{ maxHeight: "430px", objectFit: "cover" }}
+      />
+      <h5 className="mb-3">📘 خريطة التزكية</h5>
+      <p className="text-secondary mt-auto">
+        خطتك العملية للتغير في شهرين
+      </p>
+    </div>
+  </div>
+
+</div>
+
+
+
+
+          </div>
+        </div>
+
       </div>
     </div>
   );

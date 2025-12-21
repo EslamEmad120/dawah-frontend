@@ -9,68 +9,73 @@ export default function QuestionsList() {
   const [questions, setQuestions] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const [lessonPoints, setLessonPoints] = useState(0);
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [isCorrect, setIsCorrect] = useState(null);
-  const [points, setPoints] = useState(0);
 
-  // 🔹 تحميل الدرس + الأسئلة
   useEffect(() => {
     const fetchData = async () => {
-      // الدرس
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+
       const { data: lessonData } = await supabase
         .from("lessons")
         .select("*")
         .eq("id", lessonId)
         .single();
 
-      // الأسئلة
       const { data: questionsData } = await supabase
         .from("questions")
         .select("*")
         .eq("lesson_id", lessonId);
 
+      const { data: lessonPointsData } = await supabase
+        .from("user_lesson_points")
+        .select("points")
+        .eq("user_id", user.id)
+        .eq("lesson_id", lessonId)
+        .single();
+
       setLesson(lessonData);
       setQuestions(questionsData || []);
+      setLessonPoints(lessonPointsData?.points || 0);
       setLoading(false);
     };
 
     fetchData();
   }, [lessonId]);
 
-  if (loading)
-    return (
-      <div className="bg-dark text-light min-vh-100 d-flex align-items-center justify-content-center">
-        ⏳ جاري التحميل...
-      </div>
-    );
-
-  if (!lesson)
-    return (
-      <div className="bg-dark text-danger min-vh-100 d-flex align-items-center justify-content-center">
-        ❌ لم يتم العثور على الدرس
-      </div>
-    );
-
-  if (questions.length === 0)
-    return (
-      <div className="bg-dark text-warning min-vh-100 d-flex align-items-center justify-content-center">
-        🚫 لا توجد أسئلة لهذا الدرس
-      </div>
-    );
+  if (loading) return <div className="text-center text-light">⏳ جاري التحميل...</div>;
 
   const question = questions[currentQuestion];
 
-  // ✅ اختيار إجابة
-  const handleAnswer = (option) => {
+  const handleAnswer = async (option) => {
+    if (selectedAnswer) return;
+
     setSelectedAnswer(option);
     const correct = option === question.correct_option;
     setIsCorrect(correct);
 
-    if (correct) setPoints((prev) => prev + 10);
+    if (!correct) return;
+
+    const { data: { user } } = await supabase.auth.getUser();
+    if (!user) return;
+
+    const newPoints = lessonPoints + 10;
+    setLessonPoints(newPoints);
+
+    await supabase.from("user_lesson_points").upsert(
+      {
+        user_id: user.id,
+        lesson_id: lesson.id,
+        course_id: lesson.course_id,
+        points: newPoints,
+      },
+      { onConflict: ["user_id", "lesson_id"] }
+    );
   };
 
-  // ▶️ السؤال التالي
   const handleNext = () => {
     setSelectedAnswer(null);
     setIsCorrect(null);
@@ -79,64 +84,41 @@ export default function QuestionsList() {
 
   return (
     <div className="bg-dark text-light min-vh-100 py-5">
-      <div className="container">
+      <div className="container text-center">
+        <h2>🎯 {lesson.title}</h2>
 
-        {/* عنوان */}
-        <h2 className="text-center mb-2">🎯 {lesson.title}</h2>
-        <p className="text-center text-secondary mb-4">
-          السؤال {currentQuestion + 1} من {questions.length}
-        </p>
+        <div className="bg-black p-4 rounded shadow mt-4">
+          <h4>{question.question}</h4>
 
-        {/* صندوق السؤال */}
-        <div className="bg-black p-4 rounded-4 shadow-lg text-center">
-
-          <h4 className="mb-4">{question.question}</h4>
-
-          <div className="d-grid gap-3">
-            {question.options.map((opt, index) => {
-              let btnClass = "btn btn-outline-light";
-
-              if (selectedAnswer) {
-                if (opt === question.correct_option)
-                  btnClass = "btn btn-success";
-                else if (opt === selectedAnswer)
-                  btnClass = "btn btn-danger";
-              }
-
-              return (
-                <button
-                  key={index}
-                  className={btnClass}
-                  disabled={!!selectedAnswer}
-                  onClick={() => handleAnswer(opt)}
-                >
-                  {opt}
-                </button>
-              );
-            })}
+          <div className="d-grid gap-3 mt-4">
+            {question.options.map((opt, i) => (
+              <button
+                key={i}
+                className={`btn ${
+                  selectedAnswer
+                    ? opt === question.correct_option
+                      ? "btn-success"
+                      : opt === selectedAnswer
+                      ? "btn-danger"
+                      : "btn-outline-light"
+                    : "btn-outline-light"
+                }`}
+                disabled={!!selectedAnswer}
+                onClick={() => handleAnswer(opt)}
+              >
+                {opt}
+              </button>
+            ))}
           </div>
 
-          {/* النتيجة */}
           {selectedAnswer && (
             <div className="mt-4">
-              {isCorrect ? (
-                <p className="text-success fw-bold">✅ إجابة صحيحة</p>
-              ) : (
-                <p className="text-danger fw-bold">❌ إجابة خاطئة</p>
-              )}
-
               {currentQuestion < questions.length - 1 ? (
-                <button
-                  className="btn btn-outline-warning mt-3"
-                  onClick={handleNext}
-                >
+                <button className="btn btn-warning" onClick={handleNext}>
                   ▶️ السؤال التالي
                 </button>
               ) : (
-                <Link
-                  to={`/course/${lesson.course_id}`}
-                  className="btn btn-outline-info mt-3"
-                >
+                <Link to={`/course/${lesson.course_id}`} className="btn btn-info">
                   🏁 إنهاء والعودة للكورس
                 </Link>
               )}
@@ -144,10 +126,9 @@ export default function QuestionsList() {
           )}
         </div>
 
-        {/* النقاط */}
-        <div className="text-center mt-4">
-          <p className="fs-5">🏅 نقاطك في هذا الدرس: {points}</p>
-        </div>
+        <p className="mt-4 fs-5">
+          🏅 نقاطك في هذا الدرس: <span className="text-warning">{lessonPoints}</span>
+        </p>
       </div>
     </div>
   );

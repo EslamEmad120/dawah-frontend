@@ -62,6 +62,15 @@ export default function Home() {
               >
                 📘 فيسبوك
               </a>
+
+              <a
+                href="/about"
+                target="_blank"
+                rel="noreferrer"
+                className="btn btn-success mx-2"
+              >
+                📘 تعريف بالشيخ
+              </a>
             </div>
           </div>
         </div>

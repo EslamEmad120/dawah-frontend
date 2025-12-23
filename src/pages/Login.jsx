@@ -25,33 +25,79 @@ export default function Login() {
   };
 
   return (
-    <div className="bg-dark min-vh-100 d-flex align-items-center justify-content-center text-light">
+    <div
+  className="min-vh-100 d-flex align-items-center justify-content-center"
+  style={{ backgroundColor: "#0b0f1a" }}
+
+
+    >
       <form
         onSubmit={handleLogin}
-        className="bg-black p-4 rounded shadow"
-        style={{ width: "350px" }}
+        className="p-4 rounded-4 shadow-lg text-light"
+        style={{
+          width: "380px",
+          background: "rgba(0,0,0,0.75)",
+          backdropFilter: "blur(10px)",
+        }}
       >
-        <h3 className="text-center mb-3">🔐 تسجيل الدخول</h3>
+        <div className="text-center mb-4">
+          <div
+            className="mb-2 mx-auto d-flex align-items-center justify-content-center rounded-circle"
+            style={{
+              width: "60px",
+              height: "60px",
+              background: "#0d6efd",
+              fontSize: "28px",
+            }}
+          >
+            🔐
+          </div>
+          <h4 className="fw-bold">تسجيل الدخول</h4>
+          <p className="text-secondary small mb-0">
+            أدخل بياناتك للمتابعة
+          </p>
+        </div>
 
-        <input
-          type="email"
-          className="form-control mb-3"
-          placeholder="البريد الإلكتروني"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
+        <div className="mb-3">
+          <label className="form-label small text-secondary">
+            البريد الإلكتروني
+          </label>
+          <input
+            type="email"
+            className="form-control bg-dark text-light border-0"
+            placeholder="example@email.com"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </div>
 
-        <input
-          type="password"
-          className="form-control mb-3"
-          placeholder="كلمة المرور"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
+        <div className="mb-4">
+          <label className="form-label small text-secondary">
+            كلمة المرور
+          </label>
+          <input
+            type="password"
+            className="form-control bg-dark text-light border-0"
+            placeholder="••••••••"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
 
-        <button className="btn btn-primary w-100">دخول</button>
+        <button
+          className="btn btn-primary w-100 py-2 fw-bold"
+          style={{ letterSpacing: "1px" }}
+        >
+          دخول
+        </button>
+
+        <div className="text-center mt-3">
+          <small className="text-secondary">
+            جميع الحقوق محفوظة ©
+          </small>
+        </div>
       </form>
     </div>
   );

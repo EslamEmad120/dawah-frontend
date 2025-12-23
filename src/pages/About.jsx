@@ -83,6 +83,56 @@ export default function About() {
               </div>
             </div>
 
+            {/* Book 4 */}
+            <div className="col-md-4 d-flex">
+              <div className="bg-black p-3 rounded shadow text-center w-100 d-flex flex-column">
+                <img
+                  src="https://cvtlkqqnoqcwvzvlazyz.supabase.co/storage/v1/object/public/courses-bucket/lessons/yousofBook.jpg"
+                  className="mb-3 mx-auto"
+                  alt="خريطة التزكية"
+                  style={{ width: "100%", height: "350px", objectFit: "cover", borderRadius: "8px" }}
+                />
+                <h5 className="mb-2">📘 تعلمت من يوسف عليه السلام</h5>
+                <p className="text-secondary mt-auto">
+                  تدبر سورة يوسف
+                </p>
+              </div>
+            </div>
+
+            {/* Book 5 */}
+            <div className="col-md-4 d-flex">
+              <div className="bg-black p-3 rounded shadow text-center w-100 d-flex flex-column">
+                <img
+                  src="https://cvtlkqqnoqcwvzvlazyz.supabase.co/storage/v1/object/public/courses-bucket/lessons/zar.jpg"
+                  className="mb-3 mx-auto"
+                  alt="خريطة التزكية"
+                  style={{ width: "100%", height: "350px", objectFit: "cover", borderRadius: "8px" }}
+                />
+                <h5 className="mb-2">📘 مدرسةالذاريات</h5>
+                <p className="text-secondary mt-auto">
+                  تدبر جزء الذاريات
+                </p>
+              </div>
+            </div>
+
+
+            {/* Book 5 */}
+            <div className="col-md-4 d-flex">
+              <div className="bg-black p-3 rounded shadow text-center w-100 d-flex flex-column">
+                <img
+                  src="https://cvtlkqqnoqcwvzvlazyz.supabase.co/storage/v1/object/public/courses-bucket/lessons/Hydaia.jpeg"
+                  className="mb-3 mx-auto"
+                  alt="خريطة التزكية"
+                  style={{ width: "100%", height: "350px", objectFit: "cover", borderRadius: "8px" }}
+                />
+                <h5 className="mb-2">📘 قصة الهداية</h5>
+                <p className="text-secondary mt-auto">
+                  عقبات البدايات ونصائح للثبات
+                </p>
+              </div>
+            </div>
+            
+
           </div>
         </div>
 

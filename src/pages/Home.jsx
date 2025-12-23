@@ -38,8 +38,8 @@ export default function Home() {
           </div>
 
           <div className="col-md-8">
-            <h1 className="mb-3">الشيخ علاء حامد</h1>
-            <p className="lead text-secondary">
+            <h1 className="mb-3">المهندس علاء حامد</h1>
+            <p className="lead text-secondary" >
               داعية إسلامي يقدّم دروسًا تفسيرية وتربوية في سور القرآن الكريم
               بأسلوب مبسط يناسب جميع الأعمار، مع التركيز على الفهم والعمل.
             </p>

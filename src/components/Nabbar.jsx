@@ -36,16 +36,27 @@ export default function Navbar() {
 
         {/* 🔹 اللوجو */}
         <Link className="navbar-brand fw-bold" to="/">
-          🎓 منصة الشيخ علاء حامد
+          🎓 منصة المهندس علاء حامد
         </Link>
 
-        
+        {/* ☰ زرار الموبايل */}
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarContent"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
 
-        <div className="collapse navbar-collapse justify-content-end">
+        {/* 🔽 المحتوى */}
+        <div
+          className="collapse navbar-collapse justify-content-end"
+          id="navbarContent"
+        >
           {user ? (
-            <div className="d-flex align-items-center gap-3">
-
-
+            <div className="d-flex flex-column flex-lg-row align-items-lg-center gap-3 mt-3 mt-lg-0">
+              
               {/* 👤 المستخدم */}
               <Link
                 to="/profile"
@@ -53,7 +64,6 @@ export default function Navbar() {
               >
                 👋 {user.email}
               </Link>
-
 
               {/* 🚪 تسجيل خروج */}
               <button
@@ -64,7 +74,7 @@ export default function Navbar() {
               </button>
             </div>
           ) : (
-            <div className="d-flex gap-2">
+            <div className="d-flex flex-column flex-lg-row gap-2 mt-3 mt-lg-0">
               <Link to="/login" className="btn btn-outline-light btn-sm">
                 تسجيل الدخول
               </Link>
@@ -74,7 +84,6 @@ export default function Navbar() {
             </div>
           )}
         </div>
-
       </div>
     </nav>
   );

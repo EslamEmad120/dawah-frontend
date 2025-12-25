@@ -44,7 +44,8 @@ export default function Home() {
               بأسلوب مبسط يناسب جميع الأعمار، مع التركيز على الفهم والعمل
             </p>
 
-            <div className="mt-3">
+            <div className="mt-3 text-end">
+
               <a
                 href="https://www.youtube.com/@3laaHamed"
                 target="_blank"

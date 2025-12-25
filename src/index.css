@@ -5,10 +5,41 @@
 * {
   box-sizing: border-box;
 }
+@font-face {
+  font-family: "ArabicUI";
+  src: url("/Cairo-Regular-4.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+body, * {
+  unicode-bidi: plaintext;
+  text-rendering: optimizeLegibility;
+}
 
 body {
-  font-family: 'Cairo', 'Tajawal', Arial, sans-serif;
+  font-family: "ArabicUI", Arial, sans-serif;
   direction: rtl;
   unicode-bidi: isolate;
   margin: 0;
+}
+@font-face {
+  font-family: 'ArabicUI';
+  src: url('/fonts/Cairo-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'ArabicUI';
+  src: url('/fonts/Cairo-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+}
+
+html, body {
+  font-family: 'ArabicUI', Arial, sans-serif;
+  direction: rtl;
+  unicode-bidi: plaintext;
+  text-rendering: optimizeLegibility;
 }

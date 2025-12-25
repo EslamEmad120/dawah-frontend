@@ -49,7 +49,7 @@ export default function Home() {
                 href="https://www.youtube.com/@3laaHamed"
                 target="_blank"
                 rel="noreferrer"
-                className="btn btn-danger me-2"
+                className="btn btn-danger m-2"
               >
                 ▶ قناة يوتيوب
               </a>
@@ -58,7 +58,7 @@ export default function Home() {
                 href="https://www.facebook.com/3laaHamed"
                 target="_blank"
                 rel="noreferrer"
-                className="btn btn-primary mx-2"
+                className="btn btn-primary m-2"
               >
                 📘 فيسبوك
               </a>
@@ -67,7 +67,7 @@ export default function Home() {
                 href="/about"
                 target="_blank"
                 rel="noreferrer"
-                className="btn btn-success mx-2"
+                className="btn btn-success m-2"
               >
                 📘 تعريف بالشيخ
               </a>

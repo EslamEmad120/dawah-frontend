@@ -58,7 +58,7 @@ export default function Home() {
                 href="https://www.facebook.com/3laaHamed"
                 target="_blank"
                 rel="noreferrer"
-                className="btn btn-primary"
+                className="btn btn-primary mx-2"
               >
                 📘 فيسبوك
               </a>

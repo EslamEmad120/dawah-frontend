@@ -31,7 +31,8 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-4 shadow-sm">
+ <nav className="navbar navbar-expand-lg navbar-dark bg-dark px-4 shadow-sm navbar-ltr">
+
       <div className="container-fluid">
 
         {/* 🔹 اللوجو */}
